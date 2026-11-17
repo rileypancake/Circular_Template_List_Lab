@@ -1,4 +1,4 @@
-# CMPSC 272: Circular Templated Linked List Lab
+**# CMPSC 272: Circular Templated Linked List Lab
 
 ## Project Overview: The Universal Playlist Manager
 
@@ -44,3 +44,14 @@ The second goal is to modify the mechanics of the list to be **circular**. Inste
 4. **Implement `playNext()`:** Create a new method, `playNext()`, that advances a **`current`** member pointer one position. If `current` advances from the tail, it should wrap around to the head, maintaining continuous playback.
 
 5. **Destructor Safety:** Ensure the destructor correctly identifies the termination condition for the circular list cleanup process.
+
+---
+
+## Student Notes (Riley Pancake)
+
+- * Phase 1 Updates
+- Converted `Node` and `LinkedList` to class templates (`template <typename T>`) in `LinkedList.h`, removed the non-templated definitions from `LinkedList.cpp`, and updated `main.cpp` to use `LinkedList<Media>`.
+
+- * Phase 2 Updates: 
+- Added `tail` and `current` pointers, updated `insert()` to maintain `tail->next == head`, updated `displayList()` to use a `do-while` loop stopping at `head`, implemented `playNext()` for continuous wrap-around 
+  playback, and broke the circular link (`tail->next = nullptr`) in `~LinkedList()` for clean memory deallocation.**
