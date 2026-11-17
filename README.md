@@ -2,13 +2,16 @@
 
 ## Project Overview: The Universal Playlist Manager
 
-This project provides a working C++ command-line application—a simple **Media Player Playlist** manager. The application demonstrates core object-oriented principles by using an abstract base class (`Media`) and derived classes (`Song`, `Podcast`) to allow different media types to exist in a single list (Polymorphism).
+This project provides a working C++ command-line application—a simple **Media Player Playlist** manager. The application demonstrates core object-oriented 
+principles by using an abstract base class (`Media`) and derived classes (`Song`, `Podcast`) to allow different media types to exist in a single list (Polymorphism).
 
-The goal of this lab is to take the provided starter code, which implements a basic, hard-coded, singly linked list, and evolve it into a robust, generalized data structure: a **Circular Templated Linked List**.
+The goal of this lab is to take the provided starter code, which implements a basic, hard-coded, singly linked list, and evolve it into a robust, generalized data
+structure: a **Circular Templated Linked List**.
 
 ## Starter Code Architecture
 
-The provided repository is fully structured into separate files (`.h` and `.cpp`) and already implements the correct OOP hierarchy, setting the stage for the linked list modifications.
+The provided repository is fully structured into separate files (`.h` and `.cpp`) and already implements the correct OOP hierarchy, setting the stage for the linked 
+list modifications.
 
 | Component | Files | Purpose | 
  | ----- | ----- | ----- | 
@@ -49,9 +52,16 @@ The second goal is to modify the mechanics of the list to be **circular**. Inste
 
 ## Student Notes (Riley Pancake)
 
+## Editor's Note
+- * While testing the playlist display functionality, I noticed an error in the starter code where song artist names were printing as blank strings. 
+Inspecting `Song.h` revealed that the `Song` constructor passed the title and duration to the `Media` base class (`Media(t, d)`), but omitted `artist(a)` 
+from its member initializer list, leaving `artist` uninitialized. I fixed this by adding `artist(a)` to the constructor initializer list in `Song.h` so 
+that artist names display properly in the playlist and playback output.
+
 - * Phase 1 Updates
-- Converted `Node` and `LinkedList` to class templates (`template <typename T>`) in `LinkedList.h`, removed the non-templated definitions from `LinkedList.cpp`, and updated `main.cpp` to use `LinkedList<Media>`.
+  - Converted `Node` and `LinkedList` to class templates (`template <typename T>`) in `LinkedList.h`, removed the non-templated definitions from `LinkedList.cpp`,
+  and updated `main.cpp` to use `LinkedList<Media>`.
 
 - * Phase 2 Updates: 
-- Added `tail` and `current` pointers, updated `insert()` to maintain `tail->next == head`, updated `displayList()` to use a `do-while` loop stopping at `head`, implemented `playNext()` for continuous wrap-around 
-  playback, and broke the circular link (`tail->next = nullptr`) in `~LinkedList()` for clean memory deallocation.**
+  - Added `tail` and `current` pointers, updated `insert()` to maintain `tail->next == head`, updated `displayList()` to use a `do-while` loop stopping at `head`,
+  implemented `playNext()` for continuous wrap-around playback, and broke the circular link (`tail->next = nullptr`) in `~LinkedList()` for clean memory deallocation.**
