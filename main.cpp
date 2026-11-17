@@ -33,7 +33,7 @@ int main() {
     LinkedList<Media> myPlaylist;
     int choice = 0;
 
-    std::cout << "Welcome to the Playlist Manager Starter Program (Polymorphic Edition)!" << std::endl;
+    std::cout << "Welcome to the Playlist Manager Program (Circular Templated Edition)!" << std::endl;
 
     // Demonstrate initial insertion of various media types
     myPlaylist.insert(new Song("Bohemian Rhapsody", "Queen", 355));
@@ -46,22 +46,21 @@ int main() {
         std::cout << "2. Add a new Podcast" << std::endl;
         std::cout << "3. Display Playlist" << std::endl;
         std::cout << "4. Play Current Media Item" << std::endl;
-        std::cout << "5. Exit" << std::endl;
+        std::cout << "5. Play Next Media Item" << std::endl;
+        std::cout << "6. Exit" << std::endl;
         std::cout << "Enter your choice: ";
 
         if (!(std::cin >> choice)) {
             std::cout << "Invalid input. Exiting." << std::endl;
-            choice = 5;
+            choice = 6;
         }
 
         switch (choice) {
             case 1: { // Add Song
-                // Collect user input for a new Song
                 std::string title = getLineInput("Enter Song Title: ");
                 std::string artist = getLineInput("Enter Artist Name: ");
                 int duration = getIntInput("Enter duration in seconds: ");
 
-                // Create the Song object dynamically and insert it as Media*
                 myPlaylist.insert(new Song(title, artist, duration));
                 std::cout << "[Song added successfully!]" << std::endl;
                 break;
@@ -71,7 +70,6 @@ int main() {
                 std::string host = getLineInput("Enter Host Name: ");
                 int episodeNum = getIntInput("Enter Episode Number: ");
 
-                // Create the Podcast object dynamically and insert it as Media*
                 myPlaylist.insert(new Podcast(title, host, episodeNum));
                 std::cout << "[Podcast added successfully!]" << std::endl;
                 break;
@@ -83,13 +81,16 @@ int main() {
                 myPlaylist.playCurrent();
                 break;
             case 5:
+                myPlaylist.playNext();
+                break;
+            case 6:
                 std::cout << "Exiting Playlist Manager..." << std::endl;
                 break;
             default:
                 std::cout << "Invalid menu choice. Please try again." << std::endl;
                 break;
         }
-    } while (choice != 5);
+    } while (choice != 6);
 
     // The LinkedList destructor is called automatically when 'myPlaylist' goes out of scope.
     return 0;

@@ -17,7 +17,7 @@ private:
 public:
     // Constructor
     Podcast(const std::string& t, const std::string& h, const int d)
-    : Media(t, d) {}
+ : Media(t, d), episodeTitle(t), host(h), episodeNumber(d) {}
 
     // Override toString() from the Media base class.
     std::string toString() const override;
