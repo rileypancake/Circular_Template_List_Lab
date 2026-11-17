@@ -19,21 +19,32 @@ template <typename T>
 class LinkedList {
 private:
     Node<T>* head;
+    Node<T>* tail;
+    Node<T>* current;
 
 public:
-    LinkedList() : head(nullptr) {}
+    LinkedList() : head(nullptr), tail(nullptr), current(nullptr) {}
 
     ~LinkedList() {
-        Node<T>* current = head;
+        if (head == nullptr) {
+            std::cout << "\n[Playlist cleanup complete. All memory deallocated.]" << std::endl;
+            return;
+        }
+
+        tail->next = nullptr;
+        Node<T>* temp = head;
         Node<T>* next_node = nullptr;
 
-        while (current != nullptr) {
-            next_node = current->next;
-            delete current->data;
-            delete current;
-            current = next_node;
+        while (temp != nullptr) {
+            next_node = temp->next;
+            delete temp->data;
+            delete temp;
+            temp = next_node;
         }
+
         head = nullptr;
+        tail = nullptr;
+        current = nullptr;
         std::cout << "\n[Playlist cleanup complete. All memory deallocated.]" << std::endl;
     }
 
@@ -42,12 +53,13 @@ public:
 
         if (head == nullptr) {
             head = newNode;
+            tail = newNode;
+            newNode->next = head;
+            current = head;
         } else {
-            Node<T>* current = head;
-            while (current->next != nullptr) {
-                current = current->next;
-            }
-            current->next = newNode;
+            newNode->next = head;
+            tail->next = newNode;
+            tail = newNode;
         }
     }
 
@@ -58,21 +70,35 @@ public:
         }
 
         std::cout << "\n--- Current Playlist ---" << std::endl;
-        Node<T>* current = head;
+        Node<T>* temp = head;
         int index = 1;
-        while (current != nullptr) {
-            std::cout << index++ << ". " << current->data->toString() << std::endl;
-            current = current->next;
-        }
+        do {
+            std::cout << index++ << ". " << temp->data->toString() << std::endl;
+            temp = temp->next;
+        } while (temp != head);
         std::cout << "------------------------" << std::endl;
     }
 
     void playCurrent() const {
-        if (head != nullptr) {
-            head->data->play();
+        if (current != nullptr) {
+            current->data->play();
         } else {
             std::cout << "[Playlist is empty. Nothing to play.]" << std::endl;
         }
+    }
+
+    void playNext() {
+        if (head == nullptr) {
+            std::cout << "[Playlist is empty. Nothing to play.]" << std::endl;
+            return;
+        }
+
+        if (current == nullptr) {
+            current = head;
+        } else {
+            current = current->next;
+        }
+        current->data->play();
     }
 };
 
